@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Seed of common marketplaces. Editable afterwards from
+         Amazon > Marketplaces without touching code. -->
+
+    <record id="amazon_marketplace_es" model="amazon.marketplace">
+        <field name="code">ES</field>
+        <field name="name">Spain</field>
+        <field name="marketplace_id">A1RKKUPIHCS9HS</field>
+    </record>
+
+    <record id="amazon_marketplace_de" model="amazon.marketplace">
+        <field name="code">DE</field>
+        <field name="name">Germany</field>
+        <field name="marketplace_id">A1PA6795UKMFR9</field>
+    </record>
+
+    <record id="amazon_marketplace_fr" model="amazon.marketplace">
+        <field name="code">FR</field>
+        <field name="name">France</field>
+        <field name="marketplace_id">A13V1IB3VIYZZH</field>
+    </record>
+
+    <record id="amazon_marketplace_it" model="amazon.marketplace">
+        <field name="code">IT</field>
+        <field name="name">Italy</field>
+        <field name="marketplace_id">APJ6JRA9NG5V4</field>
+    </record>
+
+    <record id="amazon_marketplace_uk" model="amazon.marketplace">
+        <field name="code">UK</field>
+        <field name="name">United Kingdom</field>
+        <field name="marketplace_id">A1F83G8C2ARO7P</field>
+    </record>
+
+</odoo>

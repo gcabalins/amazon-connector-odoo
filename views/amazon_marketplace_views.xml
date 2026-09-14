@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════
+         Marketplace catalog
+    ══════════════════════════════════════════════════════ -->
+    <record id="amazon_marketplace_view_tree" model="ir.ui.view">
+        <field name="name">amazon.marketplace.tree</field>
+        <field name="model">amazon.marketplace</field>
+        <field name="arch" type="xml">
+            <tree string="Amazon Marketplaces" editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="marketplace_id"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_amazon_marketplace" model="ir.actions.act_window">
+        <field name="name">Amazon Marketplaces</field>
+        <field name="res_model">amazon.marketplace</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smart_action">
+                Add Amazon marketplaces here (country + Marketplace ID).
+                Then, on each Amazon account's form, choose which ones
+                that account uses.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_amazon_marketplace"
+            name="Marketplaces"
+            parent="menu_amazon_connector_config"
+            action="action_amazon_marketplace"
+            sequence="30"/>
+
+    <!-- ══════════════════════════════════════════════════════
+         Tab on the amazon.connection form to choose
+         each account's marketplaces
+    ══════════════════════════════════════════════════════ -->
+    <record id="amazon_connection_view_form_marketplaces" model="ir.ui.view">
+        <field name="name">amazon.connection.form.marketplaces</field>
+        <field name="model">amazon.connection</field>
+        <field name="inherit_id" ref="amazon_connector.amazon_connection_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Marketplaces" name="marketplaces">
+                    <div class="alert alert-info" role="alert">
+                        Marketplaces this account operates in. Child modules
+                        (returns, weekly RMA report, etc.) read this list
+                        to know which marketplaces to request reports for from Amazon.
+                    </div>
+                    <field name="marketplace_ids" widget="many2many_tags"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
