@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_amazon_connection_admin,amazon.connection admin,model_amazon_connection,base.group_system,1,1,1,1
+access_amazon_connection_user,amazon.connection user,model_amazon_connection,base.group_user,1,0,0,0
+access_amazon_api_log_admin,amazon.api.log admin,model_amazon_api_log,base.group_system,1,1,1,1
+access_amazon_api_log_user,amazon.api.log user,model_amazon_api_log,base.group_user,1,0,0,1
+access_amazon_log_clean_wizard,amazon.log.clean.wizard admin,model_amazon_log_clean_wizard,base.group_system,1,1,1,1
+access_amazon_connector_settings_admin,amazon.connector.settings admin,model_amazon_connector_settings,base.group_system,1,1,1,1
+access_amazon_connector_settings_user,amazon.connector.settings user,model_amazon_connector_settings,base.group_user,1,0,0,0
+access_amazon_marketplace_admin,amazon.marketplace admin,model_amazon_marketplace,base.group_system,1,1,1,1
+access_amazon_marketplace_user,amazon.marketplace user,model_amazon_marketplace,base.group_user,1,0,0,0

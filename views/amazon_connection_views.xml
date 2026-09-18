@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List view -->
+    <record id="amazon_connection_view_tree" model="ir.ui.view">
+        <field name="name">amazon.connection.tree</field>
+        <field name="model">amazon.connection</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree string="Amazon Configurations">
+                <field name="name"/>
+                <field name="marketplace_country"/>
+                <field name="region"/>
+                <field name="is_default"/>
+                <field name="connection_state"
+                       decoration-success="connection_state == 'ok'"
+                       decoration-danger="connection_state == 'error'"
+                       decoration-muted="connection_state == 'not_tested'"
+                       widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="amazon_connection_view_form" model="ir.ui.view">
+        <field name="name">amazon.connection.form</field>
+        <field name="model">amazon.connection</field>
+        <field name="arch" type="xml">
+            <form string="Amazon SP-API Configuration">
+                <header>
+                    <button name="action_test_connection"
+                            string="Test Connection"
+                            type="object"
+                            class="btn-primary"/>
+                    <field name="connection_state"
+                           widget="statusbar"
+                           statusbar_visible="not_tested,ok,error"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         attrs="{'invisible': [('last_error', '=', False)]}">
+                        <strong>Last error:</strong>
+                        <field name="last_error" readonly="1" nolabel="1"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Profile Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Identification">
+                            <field name="active"/>
+                            <field name="is_default"/>
+                            <field name="region"/>
+                            <field name="marketplace_country"/>
+                            <field name="marketplace_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="LWA Credentials" name="credentials">
+                            <div class="alert alert-info" role="alert">
+                                <strong>Where do I find these credentials?</strong><br/>
+                                Seller Central → Apps and Services → Develop Apps
+                                → your app → <em>LWA credentials</em><br/>
+                                The <strong>Refresh Token</strong> is generated in the
+                                <em>Authorize</em> section of your application.
+                            </div>
+                            <group>
+                            <!-- password="True" -->
+                                <field name="lwa_client_id"
+                                    password="True"                                      
+                                    placeholder="amzn1.application-oa2-client.xxx"/>
+                                <field name="lwa_client_secret"
+                                    password="True"
+                                    placeholder="Client Secret of your app"/>
+                                <field name="refresh_token"
+                                    password="True"
+                                    placeholder="Atzr|IwEB..."/>
+                            </group>
+                        </page>
+                        <page string="Current Token" name="token">
+                            <div class="oe_title">
+                                <div class="alert alert-warning" role="alert">
+                                    The system manages these values automatically.
+                                    Do not edit them manually.
+                                </div>
+                            </div>
+                            <group>
+                                <field name="access_token" 
+                                    password="True"
+                                    readonly="1"/>
+                                <field name="token_expiry" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Window action -->
+    <record id="action_amazon_connection" model="ir.actions.act_window">
+        <field name="name">Amazon API Connections</field>
+        <field name="res_model">amazon.connection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- We explicitly pin which view each mode uses. Without this, Odoo
+         resolves "the tree view for amazon.connection" implicitly, and
+         once more tree views are added for this same model (e.g. the
+         "Linked Accounts" views from child modules, which also use
+         create="0"), this action can start resolving to the wrong
+         view — which is exactly what happened. -->
+    <record id="action_amazon_connection_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="amazon_connection_view_tree"/>
+        <field name="act_window_id" ref="action_amazon_connection"/>
+    </record>
+
+    <record id="action_amazon_connection_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="amazon_connection_view_form"/>
+        <field name="act_window_id" ref="action_amazon_connection"/>
+    </record>
+
+</odoo>

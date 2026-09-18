@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Base connector's main menus, grouped under
+         menu_amazon_connector_config (see menu_root_views.xml). Child
+         modules (returns, orders, etc.) do NOT hang directly here: each
+         one creates its own container menu under menu_amazon_root (see
+         each child module's own menu_root_views.xml) and puts its
+         submenus inside that, so the root doesn't fill up with loose
+         entries. -->
+    <menuitem id="menu_amazon_connection"
+            name="API Connections"
+            parent="menu_amazon_connector_config"
+            action="action_amazon_connection"
+            sequence="10"/>
+
+    <menuitem id="menu_amazon_api_log"
+            name="API Call Log"
+            parent="menu_amazon_connector_config"
+            action="action_amazon_api_log"
+            sequence="20"/>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="amazon_log_clean_wizard_form" model="ir.ui.view">
+        <field name="name">amazon.log.clean.wizard.form</field>
+        <field name="model">amazon.log.clean.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Clean old logs">
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        This action is irreversible. Deleted records cannot be recovered.
+                    </div>
+                    <group>
+                        <field name="days" string="Delete logs older than N days"/>
+                        <field name="records_to_delete" string="Records to be deleted" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm cleanup"
+                            type="object"
+                            name="action_confirm"
+                            class="btn-danger"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="amazon_api_log_view_tree" model="ir.ui.view">
+        <field name="name">amazon.api.log.tree</field>
+        <field name="model">amazon.api.log</field>
+        <field name="arch" type="xml">
+            <tree string="Amazon Call Log" create="0" edit="0">
+                <field name="create_date" string="Date"/>
+                <field name="config_id" string="Profile"/>
+                <field name="method"/>
+                <field name="endpoint"/>
+                <field name="http_status"/>
+                <field name="state"
+                       decoration-success="state == 'ok'"
+                       decoration-danger="state == 'error'"
+                       widget="badge"/>
+                <field name="error_message" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="amazon_api_log_view_form" model="ir.ui.view">
+        <field name="name">amazon.api.log.form</field>
+        <field name="model">amazon.api.log</field>
+        <field name="arch" type="xml">
+            <form string="API Call Detail" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date" string="Date"/>
+                            <field name="config_id" string="Profile"/>
+                            <field name="method" string="HTTP Method"/>
+                            <field name="endpoint"/>
+                            <field name="http_status" string="HTTP Status"/>
+                            <field name="state" string="Result"/>
+                        </group>
+                    </group>
+                    <group string="Parameters sent">
+                        <field name="params" nolabel="1" readonly="1"/>
+                    </group>
+                    <group string="Error"
+                           attrs="{'invisible': [('error_message', '=', False)]}">
+                        <field name="error_message" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_amazon_api_log" model="ir.actions.act_window">
+        <field name="name">API Call Log</field>
+        <field name="res_model">amazon.api.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_clean_amazon_logs" model="ir.actions.server">
+        <field name="name">Clean old logs</field>
+        <field name="model_id" ref="model_amazon_api_log"/>
+        <field name="binding_model_id" ref="model_amazon_api_log"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = model.action_clean_logs_wizard()</field>
+    </record>
+
+</odoo>

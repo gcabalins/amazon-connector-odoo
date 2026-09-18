@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Root menu -->
+    <menuitem id="menu_amazon_root"
+              name="Amazon Connector"
+              sequence="90"
+              web_icon="amazon_connector,static/description/icon.png"/>
+
+    <!-- Container for the base connector's own menus (Connections,
+         Marketplaces, Log, Advanced settings). Keeps the top tab bar from
+         filling up with loose entries. Child modules (returns, etc.) do
+         NOT hang here. Each one keeps creating its OWN separate container
+         under menu_amazon_root (see menu_views.xml). -->
+    <menuitem id="menu_amazon_connector_config"
+              name="Connector Settings"
+              parent="menu_amazon_root"
+              sequence="5"/>
+
+</odoo>
