@@ -14,13 +14,14 @@
       <li style="margin-bottom: 14px;">
         <strong>An Amazon account is registered for each seller profile</strong> you need to
         connect (several active accounts are supported at once, each with its own LWA
-        credentials — Client ID, Client Secret, Refresh Token — and its own region: Europe,
+        credentials - Client ID, Client Secret, Refresh Token - and its own region: Europe,
         North America, or Far East).
       </li>
       <li style="margin-bottom: 14px;">
         <strong>Each account chooses which marketplaces it operates in</strong>, from its own
-        catalog (country + Amazon marketplace ID). Modules that implement actual business logic
-        (e.g. returns) read this list to know which marketplaces to request data for.
+        catalog (country + Amazon marketplace ID). Any module that implements actual business
+        logic on top of this connector reads that list to know which marketplaces to request
+        data for.
       </li>
       <li style="margin-bottom: 14px;">
         <strong>When a module needs to make a call</strong>, this module checks whether the
@@ -35,13 +36,13 @@
         raw error.
       </li>
       <li style="margin-bottom: 14px;">
-        <strong>Every call is logged</strong> — endpoint, method, parameters sent, response code,
-        and the error if there was one — in a log viewable from the UI, with a wizard to clean up
+        <strong>Every call is logged</strong> - endpoint, method, parameters sent, response code,
+        and the error if there was one - in a log viewable from the UI, with a wizard to clean up
         old entries when needed.
       </li>
       <li>
         <strong>For endpoints that return paginated results</strong>, there's a separate method
-        (<code>call_paginated()</code>) that handles pagination automatically — the calling
+        (<code>call_paginated()</code>) that handles pagination automatically - the calling
         module just has to iterate over the results without managing the page token itself.
       </li>
     </ol>
@@ -49,23 +50,26 @@
 
   <section style="margin-bottom: 32px;">
     <h2 style="font-size: 20px;">Configuration</h2>
-    <p>Everything is configured from <strong>Amazon Connector → Connector Settings</strong>:</p>
+    <p>Everything is configured from <strong>Amazon Connector - Connector Settings</strong>:</p>
     <ul style="padding-left: 20px;">
-      <li><strong>API Connections</strong> — registration and credentials for each Amazon account.</li>
-      <li><strong>Marketplaces</strong> — catalog of country + marketplace ID, and which
+      <li><strong>API Connections</strong> - registration and credentials for each Amazon account.</li>
+      <li><strong>Marketplaces</strong> - catalog of country + marketplace ID, and which
         marketplaces each account uses.</li>
-      <li><strong>API Call Log</strong> — history of requests made to Amazon, with their result.</li>
-      <li><strong>Advanced Settings</strong> — general connector settings.</li>
+      <li><strong>API Call Log</strong> - history of requests made to Amazon, with their result.</li>
+      <li><strong>Advanced Settings</strong> - general connector settings.</li>
     </ul>
   </section>
 
   <section>
     <h2 style="font-size: 20px;">Technical note</h2>
     <p style="color: #6c757d; font-size: 14px;">
-      This module is the base on which specific modules are built (e.g. "Amazon Returns"). It is
-      not functional on its own for any concrete business process — it only provides the
-      connection infrastructure those modules rely on.
+      This is a base module for the Amazon Selling Partner API. On its own, it does not perform
+      any business process - it only provides the authentication and connection infrastructure
+      (token management, multi-account support, generic paginated calls, request logging) that
+      other Amazon-related modules are built on top of.
     </p>
   </section>
+
+</section>
 
 </section>
