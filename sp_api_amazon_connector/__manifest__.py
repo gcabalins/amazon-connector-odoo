@@ -15,6 +15,7 @@
     """,
     'author': 'Gabriel Cabalin',
     'website': 'https://es.fiverr.com/s/aekWpAG',
+    'images': ['static/description/banner.png'],
     'category': 'Technical',
     'depends': ['base'],
     'data': [
