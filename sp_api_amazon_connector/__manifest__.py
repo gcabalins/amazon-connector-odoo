@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Amazon Connector',
-    'version': '19.0.0.0.0',
+    'version': '16.0.1.0.0',
     'summary': 'Base connector for the Amazon SP-API. Other modules depend on it.',
     'description': """
         Base module that handles authentication and communication with the
@@ -14,8 +14,9 @@
         - API call log for troubleshooting
     """,
     'author': 'Gabriel Cabalin',
+    'website': 'https://es.fiverr.com/s/aekWpAG',
     'category': 'Technical',
-    'depends': ['base', 'base_setup', 'mail'],
+    'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
         'data/amazon_marketplace_data.xml',
